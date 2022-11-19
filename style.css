@@ -149,13 +149,13 @@ body {
   height: 23px;
   top: 13px;
   right: 12px;
-  background: url(/images/close-icon.svg) 3px 3px no-repeat;
+  background: url(images/close-icon.svg) 3px 3px no-repeat;
   cursor: pointer;
   transform: rotate(45deg);
   /* transition: background 1s ease 3s; */
 }
 .new-item_add:hover {
-  background: url(/images/close-icon.svg) 0 0/ 100% no-repeat;
+  background: url(images/close-icon.svg) 0 0/ 100% no-repeat;
 }
 
 .item {
@@ -175,7 +175,7 @@ body {
   height: 24px;
   top: 9px;
   left: 9px;
-  background: url(/images/ellipse-empty.svg) 0 0 /100% no-repeat;
+  background: url(images/ellipse-empty.svg) 0 0 /100% no-repeat;
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
@@ -188,7 +188,7 @@ body {
   height: 24px;
   top: 9px;
   left: 9px;
-  background: url(/images/ellipse-fullll.svg) 0 0 /100% no-repeat;
+  background: url(images/ellipse-fullll.svg) 0 0 /100% no-repeat;
   cursor: pointer;
 }
 
@@ -205,12 +205,12 @@ body {
   height: 23px;
   top: 10px;
   right: 10px;
-  background: url(/images/close-icon.svg) 3px 3px no-repeat;
+  background: url(images/close-icon.svg) 3px 3px no-repeat;
   cursor: pointer;
 }
 
 .item-close:hover {
-  background: url(/images/close-icon.svg) 0 0/ 100% no-repeat;
+  background: url(images/close-icon.svg) 0 0/ 100% no-repeat;
 }
 
 /* .item__done {
