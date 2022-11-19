@@ -1,11 +1,15 @@
 // import { showArrayInConsole } from "./module_showArrayInConsole.js"
 
-let listOfTasks = [
-  { name: 'Сделать кофе', status: 'Todo', priority: 'high', numberId: '1668761297128' },
-  { name: 'Помыть посуду', status: 'Todo', priority: 'low', numberId: '1668761297129' }, 
-  { name: 'Сварить суп', status: 'Done', priority: 'high', numberId: '1668761297130' },
-  { name: 'Сделать задание', status: 'Done', priority: 'low', numberId: '1668761297131' }, 
-]
+let listOfTasks
+
+// let listOfTasks = [
+//   { name: 'Сделать кофе', status: 'Todo', priority: 'high', numberId: '1668761297128' },
+//   { name: 'Помыть посуду', status: 'Todo', priority: 'low', numberId: '1668761297129' }, 
+//   { name: 'Сварить суп', status: 'Done', priority: 'high', numberId: '1668761297130' },
+//   { name: 'Сделать задание', status: 'Done', priority: 'low', numberId: '1668761297131' }, 
+// ]
+
+listOfTasks = JSON.parse(localStorage.getItem('list')) //===>><<===
 
 const STATUS = {
   TO_DO: "Todo",
@@ -47,16 +51,40 @@ document.querySelectorAll(".new-item_add").forEach((item) => item.addEventListen
   }
 }));
 
+document.querySelector('.button-clear').addEventListener("click", function () {
+  
+  localStorage.clear()
+  listOfTasks = []
+  localStorage.setItem('list', JSON.stringify(listOfTasks));
+  render('high')
+  render('low')
+});
+
 function addChangesInArray(priorityForRender) {
+  
+  listOfTasks = JSON.parse(localStorage.getItem('list')) //===>><<===
   
   let targetInput = document.querySelector(`#input_${priorityForRender}`)
 
-  listOfTasks = listOfTasks.concat({
-    name: targetInput.value, 
-    status: STATUS.TO_DO, 
-    priority: targetInput.dataset.priority, 
-    numberId: String(Date.now())
-  })
+  if (listOfTasks !== null) {
+    listOfTasks = listOfTasks.concat({
+      name: targetInput.value, 
+      status: STATUS.TO_DO, 
+      priority: targetInput.dataset.priority, 
+      numberId: String(Date.now())
+    })
+  } else {
+    listOfTasks = []
+    listOfTasks.push(
+      {
+        name: targetInput.value, 
+        status: STATUS.TO_DO, 
+        priority: targetInput.dataset.priority, 
+        numberId: String(Date.now())
+      })
+  }
+
+  localStorage.setItem('list', JSON.stringify(listOfTasks)); // <<======>>
 
   return listOfTasks
   
@@ -90,61 +118,69 @@ function changeStatusInArray(listWithPriorityWeNeed, newItemInput, priorityForRe
     })
   }
 
+  localStorage.setItem('list', JSON.stringify(listOfTasks)); // <<======>>
   render(priorityForRender)
 }
 
 
 function render(priorityForRender) {
+
+  listOfTasks = JSON.parse(localStorage.getItem('list')) //===>><<===
   
   removeItemsFromListWithPriorityWeNeed(priorityForRender)
 
-  let listWithPriorityWeNeed = listOfTasks.filter(item => item.priority === priorityForRender)
-  
-  listWithPriorityWeNeed.forEach((item) => {
+  if (listOfTasks !== null) {
+
+    let listWithPriorityWeNeed = listOfTasks.filter(item => item.priority === priorityForRender)
     
-    const newItemDiv = document.createElement("div");
-    newItemDiv.className = "item";
-    
-    const newItemInput = document.createElement("input");
-    newItemInput.className = "item-check";
-    newItemInput.type = "checkbox";
-    if (item.status === STATUS.DONE) {
-      newItemInput.checked = true;
-      newItemDiv.style.background = '#e0dada'
-    }
-    
-    newItemInput.addEventListener("click", function () {
-      changeStatusInArray(listWithPriorityWeNeed, newItemInput, priorityForRender) 
-    });
+    listWithPriorityWeNeed.forEach((item) => {
       
-    newItemInput.id = item.numberId;
-    
-    const newItemLabel = document.createElement("label");
-    newItemLabel.className = "item-text";
-    newItemLabel.setAttribute("for", newItemInput.id);
-    newItemLabel.textContent = item.name;
-    
-    const newItemCloseBtn = document.createElement("div");
-    newItemCloseBtn.className = "item-close";
-    newItemCloseBtn.addEventListener("click", deleteTask);
-    
-    function deleteTask() {
-      listOfTasks = listOfTasks.filter((item) => item.numberId !== this.previousElementSibling.previousElementSibling.id)
-      render(priorityForRender)
-    }
-    
-    newItemDiv.prepend(newItemCloseBtn);
-    newItemDiv.prepend(newItemLabel);
-    newItemDiv.prepend(newItemInput);
-    
-    if (newItemInput.checked === true) {
-      document.querySelector(`.list-${priorityForRender}`).append(newItemDiv)
-    } else {
-      document.querySelector(`.list-${priorityForRender}`).prepend(newItemDiv)
-    }
-  })
-  console.log(listOfTasks)
-  showArrayInConsole()
+      const newItemDiv = document.createElement("div");
+      newItemDiv.className = "item";
+      
+      const newItemInput = document.createElement("input");
+      newItemInput.className = "item-check";
+      newItemInput.type = "checkbox";
+      if (item.status === STATUS.DONE) {
+        newItemInput.checked = true;
+        newItemDiv.style.background = '#e0dada'
+      }
+      
+      newItemInput.addEventListener("click", function () {
+        changeStatusInArray(listWithPriorityWeNeed, newItemInput, priorityForRender) 
+      });
+        
+      newItemInput.id = item.numberId;
+      
+      const newItemLabel = document.createElement("label");
+      newItemLabel.className = "item-text";
+      newItemLabel.setAttribute("for", newItemInput.id);
+      newItemLabel.textContent = item.name;
+      
+      const newItemCloseBtn = document.createElement("div");
+      newItemCloseBtn.className = "item-close";
+      newItemCloseBtn.addEventListener("click", deleteTask);
+      
+      function deleteTask() {
+        listOfTasks = listOfTasks.filter((item) => item.numberId !== this.previousElementSibling.previousElementSibling.id)
+        localStorage.setItem('list', JSON.stringify(listOfTasks)); // <<======>>
+        render(priorityForRender)
+      }
+      
+      newItemDiv.prepend(newItemCloseBtn);
+      newItemDiv.prepend(newItemLabel);
+      newItemDiv.prepend(newItemInput);
+      
+      if (newItemInput.checked === true) {
+        document.querySelector(`.list-${priorityForRender}`).append(newItemDiv)
+      } else {
+        document.querySelector(`.list-${priorityForRender}`).prepend(newItemDiv)
+      }
+    })
+    localStorage.setItem('list', JSON.stringify(listOfTasks)); // <<======>>
+    console.log(listOfTasks)
+    showArrayInConsole()
+  }
 }
   
 function showArrayInConsole() {

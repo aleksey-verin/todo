@@ -213,14 +213,25 @@ body {
   background: url(images/close-icon.svg) 0 0/ 100% no-repeat;
 }
 
-/* .item__done {
-    background-color: #e0dada;
-} */
+.block-clear {
+  display: flex;
+  justify-content: right;
 
-/* .section-todo {
-    
 }
-
-.block-high {
-    
-} */
+.button-clear {
+  display: flex;
+  width: 135px;
+  font-size: 14px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #989898;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.button-clear:hover {
+  background-color: #dfdddd;
+}
+.button-clear:active {
+  background-color: #c4c3c3;
+}
