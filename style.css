@@ -106,7 +106,7 @@ body {
 .container {
   background-color: #fff;
   /* height: 800px; */
-  width: 500px;
+  width: 400px;
   margin: 20px auto auto auto;
   padding: 20px 6px 40px 6px;
   border-radius: 10px;
@@ -133,7 +133,7 @@ body {
 .new-low-item__text {
   font-size: 18px;
   flex: 1 1 auto;
-  width: 430px;
+  width: 330px;
   /* margin-right: 100px; */
 }
 
