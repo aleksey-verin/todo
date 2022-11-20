@@ -101,13 +101,13 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   color: #202020;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .container {
   background-color: #fff;
-  /* height: 800px; */
   width: 100%;
-  /* margin: 20px auto auto auto; */
   padding: 20px 6px 40px 6px;
   border-radius: 10px;
 }
@@ -133,8 +133,7 @@ body {
 .new-low-item__text {
   font-size: 18px;
   flex: 1 1 auto;
-  width: 100%;
-  /* margin-right: 100px; */
+  width: 100%
 }
 
 .new-high-item__text::placeholder .new-low-item__text::placeholder {
